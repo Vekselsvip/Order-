@@ -1,5 +1,6 @@
 from product import *
 from buyer import *
+from order_iter import *
 
 
 class Order:
@@ -29,11 +30,18 @@ class Order:
         prd = ', '.join(prd)
         return f'{self.buyer}\nOrder: {prd}\nSum order -{order_1.sum_order()}'
 
+    def __getitem__(self, index):
+        if index < len(self.products):
+            return self.products[index]
+
+    def __len__(self):
+        return len(self.products)
+
+    def __iter__(self):
+        return OrderIterator(self.products)
+
 
 order_1 = Order(buyer_2)
 order_1.add_product(prod_1)
 order_1.add_product(prod_1)
 order_1.add_product(prod_2)
-print(order_1)
-
-
